@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: JS Refresher</title>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-debug.js"></script>
+</head>
+<body>
+    <ul id="people"></ul>
+
+    <input type="text" id="firstName">
+    <input type="text" id="lastName">
+    <button id="addPerson">Add</button>
+
+    <script>
+        var firstName = 'John';
+        var lastName = 'Doe';
+        var fullName = firstName + ' ' + lastName;
+
+        var person = {
+            firstName: 'Steve',
+            lastName: 'Sanders',
+            address: {
+                street: '30 main str',
+                city: 'New York'
+
+            },
+            age: 29
+        };
+
+        var people = [
+            {firstName: 'Dawn', lastName: 'Smith'},
+            {firstName: 'Brian', lastName: 'Donovan'},
+            {firstName: 'Carlos', lastName: 'Diaz'}
+        ];
+
+        var peopleList = document.getElementById('people');
+        var peopleAddButton = document.getElementById('addPerson');
+
+        function ololo() {
+            peopleList.innerHTML = '';
+            for(var i = 0; i < people.length; i++){
+                var listItem = document.createElement('li');
+                listItem.innerHTML = people[i].firstName + ' ' + people[i].lastName;
+                peopleList.appendChild(listItem);
+            }
+        }
+        ololo();
+
+        peopleAddButton.addEventListener('click', function() {
+            people.push({firstName: document.getElementById('firstName').value, lastName: document.getElementById('lastName').value});
+            console.log(people);
+            ololo();
+        });
+    </script>
+</body>
+</html>
