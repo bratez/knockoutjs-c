@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: If Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Employees if or ifnot</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: employees">
+                <tr data-bind="if: id">
+                    <td data-bind="text: id"></td>
+                    <td data-bind="text: name"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var employees = ko.observableArray([
+            {id:'e100', name:'Tom Richards'},
+            {id: undefined, name:'Bob Dilan'},
+            {id:'e102', name:'Spanch Pants'}
+        ]);
+
+        ko.applyBindings();
+    </script>
+</body>
+</html>

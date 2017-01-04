@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: Event Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+</head>
+<body>
+    <div class="container" data-bind="event: {mouseover: addHover, mouseout: removeHover}">
+        hover over me
+    </div>
+    <div class="container" data-bind="visible: isHover">
+        You are now hovering
+    </div>
+
+    <script>
+        var viewModel = {
+            isHover: ko.observable(false),
+            addHover: function() {
+                this.isHover(true);
+            },
+            removeHover: function() {
+                this.isHover(false);
+            }
+        };
+
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>
