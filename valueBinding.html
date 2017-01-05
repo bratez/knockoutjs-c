@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: Value Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <label>Login: <input type="text" data-bind="value: userName, valueUpdate: 'afterkeydown'"></label>
+        <label>Password: <input type="password" data-bind="value: userPassword"></label>
+        <p>Logging In As: <span data-bind="text: userName"></span></p>
+    </div>
+
+    <script>
+        var viewModel = {
+            userName: ko.observable(),
+            userPassword: ko.observable()
+        };
+
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>

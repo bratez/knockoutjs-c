@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: Checked Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <label for="">My checkbox <input type="checkbox" data-bind="checked: checkIt"></label>
+        <button data-bind="click: checkBox">Check</button>
+    </div>
+
+    <script>
+        var checkedValue = true;
+
+        var viewModel = {
+            checkIt: ko.observable(checkedValue),
+            checkBox: function() {
+                checkedValue = !checkedValue;
+                viewModel.checkIt(checkedValue);
+            }
+        };
+
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>

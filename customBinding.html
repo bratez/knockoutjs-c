@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: Custom Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+</head>
+<body>-
+    <div class="container">
+        <h1 data-bind="changeColor: color">ChangeColor Example</h1>
+        <select name="" id="" data-bind="value: color">
+            <option value="black">Choose</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <br>
+
+        <h2 data-bind="textFadeIn: msg"></h2>
+        <input type="text" data-bind="value: msg">
+
+    </div>
+
+    <script>
+        ko.bindingHandlers.changeColor = {
+            update: function(element, valueAccessor) {
+                var value = valueAccessor();
+                var valueUnwrapped = ko.unwrap(value);
+                element.style.color = valueUnwrapped;
+            }
+        };
+
+        ko.bindingHandlers.textFadeIn = {
+            update: function(element, valueAccessor) {
+                element.style.display = 'none';
+                ko.bindingHandlers.text.update(element, valueAccessor);
+                element.style.display = 'block';
+
+            }
+        };
+
+        var viewModel = {
+            color: ko.observable(),
+            msg:ko.observable('Text FadeIn Example')
+        };
+
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>
