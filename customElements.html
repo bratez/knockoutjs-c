@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: Underscore Template Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <newsletter-widget></newsletter-widget>
+    </div>
+
+    <script>
+        ko.components.register('newsletter-widget', {
+            viewModel: function() {
+                this.email = ko.observable();
+                this.showMessage = ko.observable(false);
+
+                this.submitForm = function(){
+                    this.showMessage(true);
+                }
+            },
+            template: '<h3>Subscribe To Our Newsletter</h3>\
+                <form action="" data-bind="submit: submitForm">\
+                    <input type="text" data-bind="value: email">\
+                    <button type="submit">Submit</button>\
+                </form>\
+                <p data-bind="visible:showMessage">Thanks For Subscribing: \
+                    <br>\
+                    <strong>\
+                        <span data-bind="text: email"></span>\
+                    </strong>\
+                </p>'
+        });
+
+        ko.applyBindings();
+    </script>
+
+</body>
+</html>
