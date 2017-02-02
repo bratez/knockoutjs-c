@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: Underscore Template Binding</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="underscore-ko.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>People</h1>
+        <ul data-bind="template: { name: 'peopleList' }"></ul>
+
+        <script type="text/html" id="peopleList">
+            <% _.each(people(), function(person) { %>
+                <li>
+                    <b data-bind="text: person.name"></b> is <%= person.age %> years old
+                </li>
+            <% }) %>
+        </script>
+
+        <p>This shows that you can use both Underscore-style evaluation (<%= ... %>) <em>and</em> data-bind attributes in the same templates.</p>
+    </div>
+
+    <script>
+        ko.underscoreTemplateEngine = function () { };
+        ko.underscoreTemplateEngine.prototype = ko.utils.extend(new ko.templateEngine(), {
+            renderTemplateSource: function (templateSource, bindingContext, options) {
+                // Precompile and cache the templates for efficiency
+                var precompiled = templateSource['data']('precompiled');
+                if (!precompiled) {
+                    precompiled = _.template("<% with($data) { %> " + templateSource.text() + " <% } %>");
+                    templateSource['data']('precompiled', precompiled);
+                }
+                // Run the template and parse its output into an array of DOM elements
+                var renderedMarkup = precompiled(bindingContext).replace(/\s+/g, " ");
+                return ko.utils.parseHtmlFragment(renderedMarkup);
+            },
+            createJavaScriptEvaluatorBlock: function(script) {
+                return "<%= " + script + " %>";
+            }
+        });
+        ko.setTemplateEngine(new ko.underscoreTemplateEngine());
+
+        var viewModel = {
+            people: ko.observableArray([
+                { name: 'Rod', age: 123 },
+                { name: 'Jane', age: 125 }
+            ])
+        };
+
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>

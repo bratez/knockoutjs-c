@@ -19,6 +19,7 @@
             checkIt: ko.observable(checkedValue),
             checkBox: function() {
                 checkedValue = !checkedValue;
+                console.log(checkedValue);
                 viewModel.checkIt(checkedValue);
             }
         };

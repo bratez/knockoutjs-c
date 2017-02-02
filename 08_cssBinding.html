@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Example: Attr Binding</title>
+    <title>Example: CSS Binding</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
 </head>
 <body>
     <div class="container">
-        <a href="" data-bind="attr: {href: url, title: details, 'data-ololo': trololo}">About Us</a>
+        <style>
+            .highAmount {
+                color: red;
+            }
+        </style>
+
+        <div data-bind="css: {highAmount: amount() > 10}, text: amount()"></div>
     </div>
 
     <script>
         var viewModel = {
-            url: ko.observable('about.html'),
-            details: ko.observable('Read More About Us'),
-            trololo: ko.observable('olo')
+            amount: ko.observable(9)
         };
 
-        //viewModel.amount = 11;
+        viewModel.amount(123123);
 
         ko.applyBindings(viewModel);
     </script>

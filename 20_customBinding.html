@@ -29,6 +29,10 @@
                 var value = valueAccessor();
                 var valueUnwrapped = ko.unwrap(value);
                 element.style.color = valueUnwrapped;
+
+                console.log(element);
+                console.log(value);
+                console.log(valueUnwrapped);
             }
         };
 
@@ -38,6 +42,9 @@
                 ko.bindingHandlers.text.update(element, valueAccessor);
                 element.style.display = 'block';
 
+                console.log(element);
+                console.log(value);
+                console.log(valueUnwrapped);
             }
         };
 

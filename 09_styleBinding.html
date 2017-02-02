@@ -9,7 +9,7 @@
 <body>
     <div class="container">
 
-        <div data-bind="style: {color: amount > 10 ? 'red' : 'green'}, text: amount"></div>
+        <div data-bind="style: {color: amount() > 10 ? 'red' : 'green'}, text: amount()"></div>
     </div>
 
     <script>
@@ -17,7 +17,7 @@
             amount: ko.observable(9)
         };
 
-        //viewModel.amount = 11;
+        viewModel.amount(123);
 
         ko.applyBindings(viewModel);
     </script>
